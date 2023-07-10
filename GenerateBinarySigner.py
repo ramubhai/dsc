@@ -15,6 +15,7 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.x509.oid import ExtensionOID
+from cryptography.hazmat.primitives.serialization import Encoding, PrivateFormat, NoEncryption
 
 # High Level Configuration parameters.
 certificateCommonName = u"CodeSigner-01" #Generated file will have this file name.
@@ -150,3 +151,18 @@ with open(certificateCommonName + ".crt", 'wb') as file:
     
 with open(certificateCommonName + ".key", 'wb') as file:
     file.write(pem_data_private)
+
+# Windows signtool.exe accepts .pfx file only. Which incorporates both public key and private key.
+# TODO: Study what happens if commonName/password is unicode characters not mappable in ascii?
+password = password.encode('utf-8') #Convert from unicode to bytes
+
+pfx = serialization.pkcs12.serialize_key_and_certificates(
+    name=organizationName.encode('utf-8'),
+    key=private_key,
+    cert=code_signing_certificate,
+    cas=[root_cert],
+    encryption_algorithm=serialization.BestAvailableEncryption(password)
+)
+
+with open(certificateCommonName + ".pfx", "wb") as pfx_file:
+    pfx_file.write(pfx)

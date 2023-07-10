@@ -3,7 +3,7 @@ This repository (hosted at https://github.com/ramubhai/dsc) provides simple pyth
 
 1. Generate self-signed root certificate.
 2. Generate code-signing certificate, counter signed by root certificate generated above.
-3. TODO: Sign windows executable using the code signing certificate.
+3. Sign windows executable using the code signing certificate.
 
 
 # How to use
@@ -12,6 +12,7 @@ This repository (hosted at https://github.com/ramubhai/dsc) provides simple pyth
 3. Change the high level configuration parameters in both script.
 4. Run the GenerateRootCA.py 1st.
 5. Than run the GenerateBinarySigner.py
+6. Change the relevant lines in SignBinary.bat and than run it in command prompt
 
 # Contribute
 Only small contributions / corrections welcome.
