@@ -1,5 +1,5 @@
 # Digital Certificate Helper
-This repository (hosted at https://github.com/ramubhai/Vishwakarma) provides simple python scripts for following purpose.
+This repository (hosted at https://github.com/ramubhai/dsc) provides simple python scripts for following purpose.
 
 1. Generate self-signed root certificate.
 2. Generate code-signing certificate, counter signed by root certificate generated above.
