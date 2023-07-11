@@ -15,7 +15,7 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.x509.oid import ExtensionOID
-from cryptography.hazmat.primitives.serialization import Encoding, PrivateFormat, NoEncryption
+from cryptography.hazmat.primitives.serialization import Encoding, PrivateFormat, NoEncryption, pkcs12
 
 # High Level Configuration parameters.
 certificateCommonName = u"CodeSigner-01" #Generated file will have this file name.
@@ -156,12 +156,23 @@ with open(certificateCommonName + ".key", 'wb') as file:
 # TODO: Study what happens if commonName/password is unicode characters not mappable in ascii?
 password = password.encode('utf-8') #Convert from unicode to bytes
 
+# encryption = serialization.BestAvailableEncryption(password) # BestAvailableEncryption uses AES256_SHA256 as on July 2023.
+# Windows Server 2016 and Windows 10 1703 and earlier do not support importing a PFX generated using AES256_SHA256.
+# https://github.com/dsccommunity/CertificateDsc/issues/153#issuecomment-413766692
+# Therefor we intentionally use weaker encryption TripleDES_SHA1. If your development machine has newer version, feel free to change it.
+encryption = (
+    PrivateFormat.PKCS12.encryption_builder().
+    kdf_rounds(50000).
+    key_cert_algorithm(pkcs12.PBES.PBESv1SHA1And3KeyTripleDESCBC).
+    hmac_hash(hashes.SHA1()).build(password)
+)
+
 pfx = serialization.pkcs12.serialize_key_and_certificates(
     name=organizationName.encode('utf-8'),
     key=private_key,
     cert=code_signing_certificate,
     cas=[root_cert],
-    encryption_algorithm=serialization.BestAvailableEncryption(password)
+    encryption_algorithm=encryption
 )
 
 with open(certificateCommonName + ".pfx", "wb") as pfx_file:
