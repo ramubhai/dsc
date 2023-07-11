@@ -11,15 +11,19 @@ rem 3. Change the "your_pfx_password" to the actual password of pfx file you use
 rem 4. Actual path of your binary file in line 23
 rem Provide the password of the pfx file on the /p line. i.e.  /p "typepasswordhere" ^
 
-C:\"Windows Kits"\10\"App Certification Kit"\signtool.exe ^
+rem Set the actual location of signtool.exe in hard drive. Two such examples are following.
+rem C:\"Windows Kits"\10\"App Certification Kit"\signtool.exe ^
+rem C:\"Program Files (x86)\Windows Kits\10\App Certification Kit"\signtool.exe ^
+
+C:\"Program Files (x86)\Windows Kits\10\App Certification Kit"\signtool.exe ^
 sign /v ^
 /fd SHA256 ^
 /f CodeSigner-01.pfx ^
 /p "your_pfx_password" ^
 /tr "http://rfc3161timestamp.globalsign.com/advanced" ^
 /td SHA256 ^
-/du "https://engineersindia.com/" ^
-/d "Vertves, Version: beta, Commit: " ^
+/du "https://example.com/" ^
+/d "Your Software Name, Version: 1.0.0.0, Commit: ________" ^
 .\YourBinaryFile.exe 
 
 rem Upto above line. Make sure to revert the password change. THE PASSWORD MUST NOT BE COMMIT TO GIT.
