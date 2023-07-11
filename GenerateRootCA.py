@@ -60,7 +60,7 @@ subject = x509.Name([
     x509.NameAttribute(x509.NameOID.COMMON_NAME, certificateCommonName)
 ])
 # Define the issuance policy OID for "all"
-issuance_policy_oid = x509.ObjectIdentifier("2.23.140.1.2.2")
+issuance_policy_oid = x509.ObjectIdentifier("2.5.29.32.0")
 
 builder = x509.CertificateBuilder()
 builder = builder.subject_name(subject)
