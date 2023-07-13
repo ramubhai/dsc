@@ -5,10 +5,10 @@ rem signtools.exe comes as part of Windows SDK. Usually installed at "C:\Windows
 rem Time Stamping reference taken from https://gist.github.com/Manouchehri/fd754e402d98430243455713efada710
 
 rem You need to make following three changes to this file befor running it in command prompt.
-rem 1. Find the actual location of signtool.exe in your PC and udpate the line 14 accordingly.
-rem 2. Change the actual name of .pfx file. in line 17
+rem 1. Find the actual location of signtool.exe in your PC and udpate the line 18 accordingly.
+rem 2. Change the actual name of .pfx file. in line 21
 rem 3. Change the "your_pfx_password" to the actual password of pfx file you used to generate they code signing certificate.
-rem 4. Actual path of your binary file in line 23
+rem 4. Actual path of your binary file in line 27
 rem Provide the password of the pfx file on the /p line. i.e.  /p "typepasswordhere" ^
 
 rem Set the actual location of signtool.exe in hard drive. Two such examples are following.
