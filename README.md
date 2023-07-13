@@ -3,7 +3,7 @@ This repository (hosted at https://github.com/ramubhai/dsc) provides simple pyth
 
 1. Generate self-signed root certificate.
 2. Generate code-signing certificate, counter signed by root certificate generated above.
-3. Sign windows executable using the code signing certificate.
+3. Sign windows executable using the code signing certificate using a .bat file.
 
 
 # How to use
